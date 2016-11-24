@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Navbar, Jumbotron, Nav, NavItem } from 'react-bootstrap';
+import { Container, Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 class Page extends React.Component {
 
@@ -9,24 +9,28 @@ class Page extends React.Component {
 
     return (
         <div id>
-          <Navbar inverse fixedTop>
-            <Grid>
-              <Navbar.Header>
-                <Navbar.Brand>
-                  <a href="/">Book Keeper</a>
-                </Navbar.Brand>
-              </Navbar.Header>
-              <Nav>
-                <NavItem href="/about">About</NavItem>
-                <NavItem href="/report">Report</NavItem>
+            <Navbar className="navbar-fixed-top navbar-dark bg-inverse">
+              <NavbarBrand href="/">reactstrap</NavbarBrand>
+              <Nav className="float-xs-right" navbar>
+                <NavItem>
+                  <NavLink href="/components/">Components</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                </NavItem>
               </Nav>
-            </Grid>
-          </Navbar>
-          <Jumbotron>
-            <Grid>
+            </Navbar>
+
+            <Container>
                 {pageContent}
-            </Grid>
-          </Jumbotron>
+            </Container>
+
+            <Container>
+                <hr />
+                <footer>
+                    <p>&copy; Albin Gilles 2016</p>
+                </footer>
+            </Container>
         </div>
     );
   }
