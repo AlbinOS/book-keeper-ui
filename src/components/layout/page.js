@@ -13,10 +13,10 @@ class Page extends React.Component {
               <NavbarBrand href="/">reactstrap</NavbarBrand>
               <Nav className="float-xs-right" navbar>
                 <NavItem>
-                  <NavLink href="/components/">Components</NavLink>
+                  <NavLink href="/about">About</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
+                  <NavLink href="/report">Report</NavLink>
                 </NavItem>
               </Nav>
             </Navbar>
