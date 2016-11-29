@@ -10,13 +10,18 @@ class Page extends React.Component {
     return (
         <div id>
             <Navbar className="navbar-fixed-top navbar-dark bg-inverse">
-              <NavbarBrand href="/">reactstrap</NavbarBrand>
+              <NavbarBrand href="/">Book Keeper</NavbarBrand>
+              <Nav navbar>
+                  <NavItem className={(this.props.location.pathname === "/" ? 'active' : '')}>
+                    <NavLink href="/">Home</NavLink>
+                  </NavItem>
+                  <NavItem className={(this.props.location.pathname === "/report" ? 'active' : '')}>
+                    <NavLink href="/report">Report</NavLink>
+                  </NavItem>
+              </Nav>
               <Nav className="float-xs-right" navbar>
-                <NavItem>
+                <NavItem className={(this.props.location.pathname === "/about" ? 'active' : '')}>
                   <NavLink href="/about">About</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="/report">Report</NavLink>
                 </NavItem>
               </Nav>
             </Navbar>

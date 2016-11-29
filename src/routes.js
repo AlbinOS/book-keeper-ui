@@ -7,7 +7,7 @@ import Page from './components/layout/page';
 // Pages
 import Home from './pages/home'
 import About from './pages/about'
-import Report from './pages/report'
+import FilterableTimetrackingTable from './pages/report'
 
 // Routes
 export const routes = (
@@ -19,7 +19,7 @@ export const routes = (
         pageContent: About
       }}/>
       <Route path="/report" components={{
-        pageContent: Report
+        pageContent: FilterableTimetrackingTable
       }}/>
     </Route>
 );

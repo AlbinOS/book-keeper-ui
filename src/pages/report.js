@@ -2,7 +2,20 @@ import React from 'react';
 
 import { Table } from 'reactstrap';
 
-class Report extends React.Component {
+class TimetrackingRow extends React.Component {
+  render() {
+    return (
+        <tr>
+          <td><a href={this.props.report.ticket_url}>{this.props.report.ticket}</a></td>
+          <td>{this.props.report.user}</td>
+          <td>{this.props.report.date}</td>
+          <td><a href={this.props.report.worklog_url}>{this.props.report.duration}</a></td>
+        </tr>
+    );
+  }
+}
+
+class TimetrackingTable extends React.Component {
 
     constructor(props) {
         super(props);
@@ -11,9 +24,8 @@ class Report extends React.Component {
         };
     }
 
-    // Olol
-    report() {
-        var request = new Request('http://localhost:8080/report/timetracking', {
+    fetchTimetrackings() {
+        var request = new Request('http://localhost:8080/api/timetracking', {
             headers: new Headers({
                 'Accept': 'application/json'
             })
@@ -33,36 +45,110 @@ class Report extends React.Component {
     // This method is always called, on the client, when the component has been
     // rendered onto the DOM.
     componentDidMount() {
-        this.report();
+        this.fetchTimetrackings();
     }
 
-    render() {
-        return (
-            <div>
-                <h1>Report</h1>
-                <Table striped responsive hover size="sm">
-                  <thead className="thead-inverse">
-                    <tr>
-                      <th>Task</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Duration (Hours)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.reports.map((report, index) => (
-                        <tr key={index}>
-                          <td><a href={report.ticket_url}>{report.ticket}</a></td>
-                          <td>{report.user}</td>
-                          <td>{report.date}</td>
-                          <td><a href={report.worklog_url}>{report.duration}</a></td>
-                        </tr>
-                    ))}
-                  </tbody>
-                </Table>
-            </div>
-        );
-    }
+  render() {
+    var rows = [];
+
+    var filterText = this.props.filterText.split(":");
+    var filterTag = ""
+    var filterValueUpper = ""
+
+    if (filterText.length > 1 ) {
+        filterTag = filterText[0]
+        filterValueUpper = filterText[1].toUpperCase()
+    } else {
+        filterTag = "ticket"
+        filterValueUpper = this.props.filterText.toUpperCase()
+   }
+
+    this.state.reports.forEach((report) => {
+        console.log(report)
+      if (report[filterTag].toUpperCase().indexOf(filterValueUpper) === -1) {
+        return;
+      }
+      rows.push(<TimetrackingRow report={report} key={report.worklog_id} />);
+    });
+
+    return (
+    <Table striped responsive hover size="sm">
+        <thead className="thead-inverse">
+            <tr>
+              <th>Task</th>
+              <th>User</th>
+              <th>Date</th>
+              <th>Duration (Hours)</th>
+            </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </Table>
+    );
+  }
 }
 
-export default Report;
+
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange() {
+    this.props.onUserInput(
+      this.filterTextInput.value
+    );
+  }
+
+  render() {
+    return (
+      <form>
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Search ..."
+          value={this.props.filterText}
+          ref={(input) => this.filterTextInput = input}
+          onChange={this.handleChange}
+        />
+      </form>
+    );
+  }
+}
+
+class FilterableTimetrackingTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterText: ''
+    };
+
+    this.handleUserInput = this.handleUserInput.bind(this);
+  }
+
+  handleUserInput(filterText, inStockOnly) {
+    this.setState({
+      filterText: filterText
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Report</h1>
+        <br />
+        <SearchBar
+          filterText={this.state.filterText}
+          onUserInput={this.handleUserInput}
+        />
+        <br />
+        <TimetrackingTable
+          products={this.props.products}
+          filterText={this.state.filterText}
+        />
+      </div>
+    );
+  }
+}
+
+export default FilterableTimetrackingTable;
