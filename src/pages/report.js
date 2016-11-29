@@ -25,11 +25,20 @@ class TimetrackingTable extends React.Component {
     }
 
     fetchTimetrackings() {
-        var request = new Request('http://localhost:8080/api/timetracking', {
-            headers: new Headers({
-                'Accept': 'application/json'
-            })
-        });
+        var request = ""
+        if (typeof this.props.sprint !== 'undefined') {
+             request = new Request('/api/timetracking/sprints/' + this.props.sprint, {
+                headers: new Headers({
+                    'Accept': 'application/json'
+                })
+            });
+        } else {
+            request = new Request('/api/timetracking', {
+               headers: new Headers({
+                   'Accept': 'application/json'
+               })
+            });
+        }
 
         fetch(request)
             .then((response) => {
@@ -142,6 +151,7 @@ class FilterableTimetrackingTable extends React.Component {
         />
         <br />
         <TimetrackingTable
+          sprint={this.props.params.sprint}
           products={this.props.products}
           filterText={this.state.filterText}
         />
