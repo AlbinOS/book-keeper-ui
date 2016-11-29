@@ -64,7 +64,6 @@ class TimetrackingTable extends React.Component {
    }
 
     this.state.reports.forEach((report) => {
-        console.log(report)
       if (report[filterTag].toUpperCase().indexOf(filterValueUpper) === -1) {
         return;
       }
