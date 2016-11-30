@@ -141,9 +141,14 @@ class FilterableTimetrackingTable extends React.Component {
   }
 
   render() {
+      var title = this.props.params.sprint !== 'undefined' ?
+        <small className="text-muted">{this.props.params.sprint}</small> :
+        '';
     return (
       <div>
-        <h1>Report</h1>
+        <h1>
+            Report {title}
+        </h1>
         <br />
         <SearchBar
           filterText={this.state.filterText}
