@@ -14,8 +14,6 @@ export const routes = (
     <Route path="/" component={Page}>
       <IndexRoute components={{pageContent: Home}}/>
       <Route path="/about" components={{pageContent: About}}/>
-      <Route path="/report" components={{pageContent: FilterableTimetrackingTable}}>
-        <Route path="/report/:sprint" components={{pageContent: FilterableTimetrackingTable}} />
-      </Route>
+      <Route path="/report" components={{pageContent: FilterableTimetrackingTable}}/>
     </Route>
 );
