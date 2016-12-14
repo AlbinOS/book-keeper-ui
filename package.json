@@ -20,6 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "embed": "react-scripts build && go-bindata-assetfs -ignore 'map|go' -pkg dist build/... && mv bindata_assetfs.go dist/dist_gen.go"
+    "embed": "react-scripts build && go-bindata-assetfs -ignore 'map|go' -pkg dist -nocompress=true build/... && mv bindata_assetfs.go dist/dist_gen.go"
   }
 }
