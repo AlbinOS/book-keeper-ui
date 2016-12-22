@@ -1,12 +1,12 @@
 import React from 'react';
-
 import {Table} from 'reactstrap';
+import LoadingGif from './../images/loading.gif';
 
 class Loader extends React.Component {
     render() {
         return (
             <div>
-                <img className="img-fluid mx-auto d-block" alt="Loading ..." src='/loading.gif'/>
+                <img className="img-fluid mx-auto d-block" alt="Loading ..." src={LoadingGif}/>
             </div>
         );
     }
